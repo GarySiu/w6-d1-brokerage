@@ -1,0 +1,16 @@
+<h2><%= @client.name %></h2>
+<h3>Balance: <%= number_to_currency @client.cash_balance %></h3>
+<table class="client-table">
+  <tr>
+  <td>Name</td><td>Shares</td><td>Unit price</td><td>Total</td>
+  </tr>
+<% @holdings.each do |holding| %>
+  <tr>
+    <td><strong><%= holding.stock.name %></strong></td>
+    <td><%= holding.shares %></td>
+    <td><%= number_to_currency holding.stock.price %></td>
+    <td><%= number_to_currency(holding.shares * holding.stock.price) %></td>
+  </tr>
+<% end %>
+</table>
+<h3>Total market value: <%= number_to_currency @total %></h3>
