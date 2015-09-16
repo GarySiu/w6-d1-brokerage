@@ -9,4 +9,17 @@ class Brokerage < ActiveRecord::Base
     self.holdings.destroy sale if sale.shares == 0
   end
 
+  def buy(stock, client, quantity)
+    # Check to see if the client already has some of that stock
+    buyer = Client.find(client)
+    if buyer.holdings.where(stock_id: stock).first
+      holding = buyer.holdings.where(stock_id: stock)
+      buyer.update(cash_balance: buyer.cash_balance -= (Stock.find(stock).price * quantity))
+      holding.update(shares: (holding.first.shares += quantity))
+    else
+      buyer.update(cash_balance: buyer.cash_balance -= (Stock.find(stock).price * quantity))
+      buyer.holdings.create(brokerage_id: self.id, shares: quantity, stock_id: stock)
+    end
+  end
+
 end
