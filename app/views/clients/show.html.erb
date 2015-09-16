@@ -1,7 +1,7 @@
 <h2><%= @client.name %></h2>
 <h3>Balance: <%= number_to_currency @client.cash_balance %></h3>
-<% unless @holdings == [] %>
-  <%= render 'table', locals: {holding: @holding} %>
+<% if @holdings.first %>
+  <%= render 'sell_table', locals: {holding: @holding} %>
 <% else %>
   <h3>This client has no shares!</h3>
 <% end %>

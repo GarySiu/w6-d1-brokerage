@@ -8,7 +8,10 @@
     <td><%= holding.shares %></td>
     <td><%= number_to_currency holding.stock.price %></td>
     <td><%= number_to_currency(holding.shares * holding.stock.price) %></td>
+    <td><%= link_to 'Sell', '#' %></td>
   </tr>
 <% end %>
+<tr>
+<td colspan="3"><strong>Total market value:</strong></td><td><%= number_to_currency @total %></td>
+</tr>
 </table>
-<h3>Total market value: <%= number_to_currency @total %></h3>
