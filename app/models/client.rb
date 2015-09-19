@@ -3,11 +3,7 @@ class Client < ActiveRecord::Base
   has_many :stocks, through: :holdings
 
   def total
-    total = []
-    self.holdings.all.each do |holding|
-      total << (holding.shares * holding.stock.price)
-    end
-    total.inject(:+)
+    self.holdings.all.inject(0) { |result, holding| result + (holding.shares * holding.stock.price) }
   end
 
 end
